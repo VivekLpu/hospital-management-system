@@ -12,6 +12,8 @@ export default function FileExplorer({ files }: FileExplorerProps) {
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
   const [newFileName, setNewFileName] = useState('');
   const [showNewFileInput, setShowNewFileInput] = useState(false);
+  const [renamingFileId, setRenamingFileId] = useState<string | null>(null);
+  const [renamingFileName, setRenamingFileName] = useState('');
 
   const {
     selectedFileId,
@@ -19,6 +21,7 @@ export default function FileExplorer({ files }: FileExplorerProps) {
     createFile,
     createFolder,
     deleteFile,
+    renameFile,
   } = useEditorStore();
 
   const toggleFolder = (folderId: string) => {
@@ -36,6 +39,19 @@ export default function FileExplorer({ files }: FileExplorerProps) {
       createFile(newFileName);
       setNewFileName('');
       setShowNewFileInput(false);
+    }
+  };
+
+  const handleRenameFile = (fileId: string, currentName: string) => {
+    setRenamingFileId(fileId);
+    setRenamingFileName(currentName);
+  };
+
+  const handleConfirmRename = (fileId: string) => {
+    if (renamingFileName.trim()) {
+      renameFile(fileId, renamingFileName);
+      setRenamingFileId(null);
+      setRenamingFileName('');
     }
   };
 
@@ -74,7 +90,36 @@ export default function FileExplorer({ files }: FileExplorerProps) {
                 <File size={16} />
               </>
             )}
-            <span className="flex-1 text-sm">{item.name}</span>
+            {renamingFileId === item.id ? (
+              <input
+                autoFocus
+                type="text"
+                value={renamingFileName}
+                onChange={(e) => setRenamingFileName(e.target.value)}
+                onBlur={() => handleConfirmRename(item.id)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleConfirmRename(item.id);
+                  } else if (e.key === 'Escape') {
+                    setRenamingFileId(null);
+                  }
+                }}
+                className="flex-1 text-sm px-1 bg-white dark:bg-gray-700 border border-blue-500 rounded"
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <span className="flex-1 text-sm">{item.name}</span>
+            )}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleRenameFile(item.id, item.name);
+              }}
+              className="p-0 hover:text-blue-500 text-xs"
+              title="Rename"
+            >
+              ✎
+            </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();

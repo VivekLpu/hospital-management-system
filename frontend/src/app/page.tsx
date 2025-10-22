@@ -8,6 +8,7 @@ import CodeEditor from '@/components/Editor';
 import Preview from '@/components/Preview';
 import { projectAPI } from '@/lib/api';
 import { useAutosave } from '@/hooks/useAutosave';
+import ProjectImport from '@/components/ProjectImport';
 import { Plus } from 'lucide-react';
 
 export default function Home() {
@@ -89,6 +90,7 @@ export default function Home() {
                   <Plus size={18} />
                   {isCreating ? 'Creating...' : 'Create'}
                 </button>
+                <ProjectImport onImportSuccess={loadProjects} />
               </div>
             </div>
 
