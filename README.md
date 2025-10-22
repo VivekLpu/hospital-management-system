@@ -1,6 +1,8 @@
-# CipherStudio - Browser-Based React IDE
+# 🔐 CipherStudio - Browser-Based React IDE
 
-A full-stack browser-based React IDE that allows users to create, edit, and preview React projects in real-time.
+A full-stack browser-based React IDE that allows users to create, edit, and preview React projects in real-time. Build React applications directly in your browser without any local setup!
+
+**[Live Demo](#)** | **[Documentation](#documentation)** | **[Quick Start](./QUICKSTART.md)** | **[Features](./FEATURES.md)**
 
 ## Features
 
@@ -145,11 +147,143 @@ vercel deploy
 - File upload/download
 - Responsive design improvements
 
-## License
+## 📖 Documentation
 
-MIT
+- **[Quick Start Guide](./QUICKSTART.md)** - Get up and running in 5 minutes
+- **[Deployment Guide](./DEPLOYMENT.md)** - Deploy to production
+- **[Deployment Checklist](./DEPLOYMENT_CHECKLIST.md)** - Pre-deployment verification
+- **[Testing Guide](./TESTING.md)** - Manual and automated testing
+- **[Architecture](./ARCHITECTURE.md)** - System design and components
+- **[Features & Roadmap](./FEATURES.md)** - Current and planned features
+- **[Project Summary](./PROJECT_SUMMARY.md)** - Complete project overview
 
-## Contributing
+## 🚀 Quick Start
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Prerequisites
+- Node.js 18+
+- MongoDB (local or MongoDB Atlas)
+
+### Installation
+
+```bash
+# Clone repository
+git clone <repository-url>
+cd CipherStudio
+
+# Install dependencies
+cd backend && npm install
+cd ../frontend && npm install
+
+# Configure environment
+cd backend
+cp .env.example .env
+# Edit .env with your MongoDB URI
+
+cd ../frontend
+# Create .env.local with:
+# NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+### Running Locally
+
+```bash
+# Terminal 1: Start backend
+cd backend
+npm run dev
+
+# Terminal 2: Start frontend
+cd frontend
+npm run dev
+
+# Open http://localhost:3000
+```
+
+## 🎯 Usage
+
+1. **Create Project**: Click "Create" and enter a project name
+2. **Add Files**: Click "+ File" to create new files
+3. **Edit Code**: Click a file and edit in the Monaco Editor
+4. **See Preview**: Changes appear instantly on the right
+5. **Save**: Click "Save" to persist to database
+6. **Export**: Click "Export" to download as JSON
+7. **Import**: Click "Import" to restore a project
+
+## 🔧 API Endpoints
+
+### Projects
+- `POST /api/projects` - Create project
+- `GET /api/projects` - Get all projects
+- `GET /api/projects/:id` - Get specific project
+- `PUT /api/projects/:id` - Update project
+- `DELETE /api/projects/:id` - Delete project
+
+## 📊 Project Statistics
+
+- **Frontend**: 2000+ lines of React/TypeScript
+- **Backend**: 500+ lines of Node.js/Express
+- **Components**: 5 main components
+- **API Routes**: 5 endpoints
+- **Documentation**: 7 comprehensive guides
+- **Git Commits**: 7 commits
+
+## 🐛 Known Issues
+
+- Node.js 18 shows warnings (requires 20+)
+- No real-time collaboration yet
+- No user authentication yet
+- Limited to React projects only
+
+## 🗺️ Roadmap
+
+### Phase 1 (Current) ✅
+- [x] Core IDE features
+- [x] File management
+- [x] Live preview
+- [x] Save/load projects
+- [x] Autosave
+- [x] Export/import
+
+### Phase 2 (Planned)
+- [ ] User authentication
+- [ ] Project sharing
+- [ ] Real-time collaboration
+- [ ] Component library
+- [ ] Deployment integration
+
+### Phase 3 (Future)
+- [ ] Mobile app
+- [ ] Advanced features
+- [ ] Enterprise support
+- [ ] Community features
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📝 License
+
+MIT License - See LICENSE file for details
+
+## 💬 Support
+
+For issues or questions:
+1. Check the [documentation](./QUICKSTART.md)
+2. Review [existing issues](https://github.com/yourusername/CipherStudio/issues)
+3. Create a new issue with details
+
+## 🙏 Acknowledgments
+
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/) - Code editor
+- [Sandpack](https://sandpack.codesandbox.io/) - React preview
+- [Next.js](https://nextjs.org/) - React framework
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Zustand](https://github.com/pmndrs/zustand) - State management
+
+---
+
+**Built with ❤️ by the CipherStudio team**
 
