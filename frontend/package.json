@@ -12,9 +12,11 @@
     "@codesandbox/sandpack-react": "^2.20.0",
     "@monaco-editor/react": "^4.7.0",
     "axios": "^1.12.2",
+    "lucide-react": "^0.546.0",
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "uuid": "^13.0.0",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
