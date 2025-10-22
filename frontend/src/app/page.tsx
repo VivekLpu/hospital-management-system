@@ -7,6 +7,7 @@ import FileExplorer from '@/components/FileExplorer';
 import CodeEditor from '@/components/Editor';
 import Preview from '@/components/Preview';
 import { projectAPI } from '@/lib/api';
+import { useAutosave } from '@/hooks/useAutosave';
 import { Plus } from 'lucide-react';
 
 export default function Home() {
@@ -15,6 +16,9 @@ export default function Home() {
   const [showProjectList, setShowProjectList] = useState(!currentProject);
   const [newProjectName, setNewProjectName] = useState('');
   const [isCreating, setIsCreating] = useState(false);
+
+  // Enable autosave with 30 second interval
+  useAutosave(30000);
 
   useEffect(() => {
     loadProjects();

@@ -24,11 +24,13 @@ interface EditorStore {
   selectedFileId: string | null;
   files: FileItem[];
   theme: 'light' | 'dark';
-  
+  autosaveEnabled: boolean;
+  isSaving: boolean;
+
   // Project actions
   setCurrentProject: (project: Project) => void;
   createNewProject: (name: string, description?: string) => void;
-  
+
   // File actions
   setSelectedFile: (fileId: string) => void;
   createFile: (name: string, parentId?: string) => void;
@@ -36,11 +38,15 @@ interface EditorStore {
   deleteFile: (fileId: string) => void;
   renameFile: (fileId: string, newName: string) => void;
   updateFileContent: (fileId: string, content: string) => void;
-  
+
   // Theme actions
   setTheme: (theme: 'light' | 'dark') => void;
   toggleTheme: () => void;
-  
+
+  // Autosave actions
+  setAutosaveEnabled: (enabled: boolean) => void;
+  setIsSaving: (saving: boolean) => void;
+
   // Utility
   getFileById: (fileId: string) => FileItem | null;
   getSelectedFileContent: () => string;
@@ -51,6 +57,8 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   selectedFileId: null,
   files: [],
   theme: 'light',
+  autosaveEnabled: true,
+  isSaving: false,
 
   setCurrentProject: (project) => {
     set({ currentProject: project, files: project.files, selectedFileId: project.files[0]?.id || null });
@@ -192,5 +200,12 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
     const file = state.files.find((f) => f.id === state.selectedFileId);
     return file?.content || '';
   },
+
+  setAutosaveEnabled: (enabled) => {
+    set({ autosaveEnabled: enabled });
+    localStorage.setItem('autosaveEnabled', JSON.stringify(enabled));
+  },
+
+  setIsSaving: (saving) => set({ isSaving: saving }),
 }));
 

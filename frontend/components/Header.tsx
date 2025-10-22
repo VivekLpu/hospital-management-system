@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useEditorStore } from '@/lib/store';
-import { Moon, Sun, Save, Download } from 'lucide-react';
+import { Moon, Sun, Save, Download, Zap } from 'lucide-react';
 import { projectAPI } from '@/lib/api';
 
 interface HeaderProps {
@@ -10,13 +10,13 @@ interface HeaderProps {
 }
 
 export default function Header({ projectName = 'CipherStudio' }: HeaderProps) {
-  const { theme, toggleTheme, currentProject, files } = useEditorStore();
-  const [isSaving, setIsSaving] = useState(false);
+  const { theme, toggleTheme, currentProject, files, autosaveEnabled, setAutosaveEnabled, isSaving } = useEditorStore();
+  const [isManualSaving, setIsManualSaving] = useState(false);
 
   const handleSaveProject = async () => {
     if (!currentProject) return;
 
-    setIsSaving(true);
+    setIsManualSaving(true);
     try {
       await projectAPI.updateProject(currentProject.projectId, {
         ...currentProject,
@@ -27,7 +27,7 @@ export default function Header({ projectName = 'CipherStudio' }: HeaderProps) {
       console.error('Error saving project:', error);
       alert('Error saving project');
     } finally {
-      setIsSaving(false);
+      setIsManualSaving(false);
     }
   };
 
@@ -62,12 +62,25 @@ export default function Header({ projectName = 'CipherStudio' }: HeaderProps) {
 
       <div className="flex items-center gap-4">
         <button
+          onClick={() => setAutosaveEnabled(!autosaveEnabled)}
+          className={`flex items-center gap-2 px-4 py-2 rounded ${
+            autosaveEnabled
+              ? 'bg-blue-500 text-white hover:bg-blue-600'
+              : 'bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-400'
+          }`}
+          title={autosaveEnabled ? 'Autosave enabled' : 'Autosave disabled'}
+        >
+          <Zap size={18} />
+          {autosaveEnabled ? 'Auto' : 'Manual'}
+        </button>
+
+        <button
           onClick={handleSaveProject}
-          disabled={isSaving}
+          disabled={isManualSaving || isSaving}
           className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:opacity-50"
         >
           <Save size={18} />
-          {isSaving ? 'Saving...' : 'Save'}
+          {isManualSaving || isSaving ? 'Saving...' : 'Save'}
         </button>
 
         <button
