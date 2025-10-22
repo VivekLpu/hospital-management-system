@@ -1,13 +1,11 @@
+
+
 {
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "env": [
-    {
-      "key": "NEXT_PUBLIC_API_URL",
-      "value": "https://cipherstudio-backend.onrender.com/api"
-    }
-  ]
+  "env": {
+    "NEXT_PUBLIC_API_URL=https://ide-janw.onrender.com/api"
+  }
 }
-
